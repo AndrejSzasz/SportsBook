@@ -15,9 +15,9 @@ cache:
 install:
 
 script:
-  - ng lint
-  - ng test
-  - ng build --prod --baseHref=https://andrejepam.github.io/SportsBook/
+  - npm run lint
+  - npm run test-ci
+  - npm run build -- --prod --baseHref=https://andrejepam.github.io/SportsBook/
 
 deploy:
   provider: pages
