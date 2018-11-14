@@ -16,7 +16,8 @@ install:
 
 script:
   - ng lint
-  - ng build --baseHref=https://andrejepam.github.io/SportsBook/
+  - ng test
+  - ng build --prod --baseHref=https://andrejepam.github.io/SportsBook/
 
 deploy:
   provider: pages
