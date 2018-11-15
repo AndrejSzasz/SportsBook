@@ -14,11 +14,18 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   login(loginData: formModel) {
-    this.http.post(environment.API_URL + environment.LOGIN_SUFFIX, loginData).subscribe(
-      (value) => { this.token = value.toString(); },
+    this.http.post(
+      environment.API_URL + environment.LOGIN_SUFFIX,
+      loginData,
+      { responseType: 'text'} ).subscribe(
+      (value) => {
+        this.token = value;
+      },
       (error) => {
-        if (error.error) {
+        if (typeof error.error === 'string') {
           window.alert(error.error);
+        } else {
+          console.log(error.error);
         }
       }
     );
