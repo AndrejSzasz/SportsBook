@@ -1,7 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Injectable } from '@angular/core';
 
+import { AuthService } from '../services/auth.service';
 import { LoginFormComponent } from './login-form.component';
+
+@Injectable()
+class AuthStubService {
+  token: string;
+  login() {}
+  isAuthenticated() {}
+}
 
 describe('LoginFormComponent', () => {
   let component: LoginFormComponent;
@@ -9,10 +18,13 @@ describe('LoginFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LoginFormComponent ],
-      imports: [FormsModule, ReactiveFormsModule]
+      declarations: [LoginFormComponent],
+      imports: [FormsModule, ReactiveFormsModule],
+      providers: [
+        { provide: AuthService, useClass: AuthStubService }
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
