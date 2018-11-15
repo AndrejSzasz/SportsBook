@@ -10,6 +10,9 @@ const LOGIN_DATA = {
 };
 const API_ENDPOINT = 'http://sportsbook-api.azurewebsites.net/api/login';
 const TOKEN = 'TOKEN';
+const mockError = new ErrorEvent('Network error', {
+  message: 'some error message',
+});
 
 describe('AuthService', () => {
   beforeEach(() => TestBed.configureTestingModule({
@@ -29,34 +32,50 @@ describe('AuthService', () => {
     let httpResponse: string;
     let httpError: HttpErrorResponse;
 
-    beforeAll(() => {
+    beforeEach(() => {
       service = TestBed.get(AuthService);
       httpMock = TestBed.get(HttpTestingController);
+
+      httpResponse = null;
+      httpError = null;
+
+      service.login(LOGIN_DATA).subscribe(
+        (response) => {
+          httpResponse = response;
+        },
+        (error) => {
+          httpError = error;
+        }
+      );
     });
 
     afterEach(() => {
       httpMock.verify();
     });
 
-    it('should make an HTTP call to the API', () => {
-      service.login(LOGIN_DATA).subscribe((response) => {
-        httpResponse = response;
-      },
-        (error) => {
-          httpError = error;
-        });
-
+    it('should make successful HTTP call to the API', () => {
       const mockRequest = httpMock.expectOne(API_ENDPOINT);
 
       expect(mockRequest.cancelled).toBeFalsy();
       expect(mockRequest.request.responseType).toEqual('text');
 
       mockRequest.flush(TOKEN);
-      expect(httpResponse).toBe(TOKEN);
-      expect(httpError).toBeUndefined();
+      expect(httpResponse).toBe(TOKEN, 'there should be proper response');
+      expect(httpError).toBeNull('should NOT return an error');
+      expect(service.token).toBe(TOKEN, '(property)');
     });
 
-    it('should get access token from API');
+    it('should NOT get a token when HTTP call fails', () => {
+      const mockRequest = httpMock.expectOne(API_ENDPOINT);
+
+      expect(mockRequest.cancelled).toBeFalsy();
+      expect(mockRequest.request.responseType).toEqual('text');
+
+      mockRequest.error(mockError);
+      expect(httpResponse).toBeNull('there should be no response');
+      expect(httpError).toBeTruthy('should return an error');
+      expect(service.token).toBeUndefined('(property)');
+    });
   });
 
 
