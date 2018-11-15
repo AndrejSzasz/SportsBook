@@ -15,25 +15,27 @@ const mockError = new ErrorEvent('Network error', {
 });
 
 describe('AuthService', () => {
-  beforeEach(() => TestBed.configureTestingModule({
-    imports: [HttpClientTestingModule],
-    providers: [AuthService]
-  }));
+  let service: AuthService;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      providers: [AuthService]
+    });
+    service = TestBed.get(AuthService);
+  });
 
   it('should be created', () => {
-    const service: AuthService = TestBed.get(AuthService);
     expect(service).toBeTruthy();
   });
 
   describe('login() method', () => {
 
-    let service: AuthService;
     let httpMock: HttpTestingController;
     let httpResponse: string;
     let httpError: HttpErrorResponse;
 
     beforeEach(() => {
-      service = TestBed.get(AuthService);
       httpMock = TestBed.get(HttpTestingController);
 
       httpResponse = null;
@@ -81,9 +83,15 @@ describe('AuthService', () => {
 
   describe('isAuthenticated() method', () => {
 
-    it('should return false if no access token');
+    it('should return false if no access token', () => {
+      service.token = '';
+      expect(service.isAuthenticated()).toBeFalsy();
+    });
 
-    it('should return true if no access token');
+    it('should return true if there is an access token', () => {
+      service.token = TOKEN;
+      expect(service.isAuthenticated()).toBeTruthy();
+    });
 
   });
 
