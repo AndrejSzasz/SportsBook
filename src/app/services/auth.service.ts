@@ -17,7 +17,9 @@ export class AuthService {
     this.http.post(environment.API_URL + environment.LOGIN_SUFFIX, loginData).subscribe(
       (value) => { this.token = value.toString(); },
       (error) => {
-        console.log(error);
+        if (error.error) {
+          window.alert(error.error);
+        }
       }
     );
   }
