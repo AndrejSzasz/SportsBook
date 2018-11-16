@@ -1,3 +1,6 @@
-<p>
-  list-stadiums works!
-</p>
+<div>
+  list-stadiums works! below is the list:
+  <ul *ngIf="stadiums$ | async as stadiums">
+    <li *ngFor="let item of stadiums">{{ item?.name }}</li>
+  </ul>
+</div>
