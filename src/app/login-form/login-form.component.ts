@@ -16,11 +16,11 @@ export class LoginFormComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private route: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private router: Router) { }
 
   ngOnInit() {
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.returnUrl = this.activatedRoute.snapshot.queryParams['returnUrl'] || '/';
 
     this.loginForm = new FormGroup({
       username: new FormControl(),
