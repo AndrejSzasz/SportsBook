@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Observable, of } from 'rxjs';
+import { of } from 'rxjs';
+import { MaterialModule } from '../../material/material.module';
 
 import { ListStadiumsComponent } from './list-stadiums.component';
 import { SbHttpService } from 'src/app/services/sb-http.service';
@@ -21,6 +22,7 @@ describe('ListStadiumsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [MaterialModule],
       declarations: [ListStadiumsComponent],
       providers: [
         { provide: SbHttpService, useValue: SbHttpStubService }
