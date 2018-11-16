@@ -61,7 +61,6 @@ describe('SbHttpService', () => {
 
       service.get<Array<Test>>(GET_ENDPOINT).subscribe(
         (value) => {
-          console.log(value);
           response = value;
         },
         (error) => {
@@ -71,6 +70,8 @@ describe('SbHttpService', () => {
       const mockRequest = httpMock.expectOne(environment.API_URL + GET_ENDPOINT);
       expect(mockRequest.cancelled).toBeFalsy();
       expect(mockRequest.request.responseType).toEqual('json');
+      expect(mockRequest.request.headers.keys()).toContain('Authorization');
+      expect(mockRequest.request.headers.get('Authorization')).toBe('Bearer ' + AuthStubService.token);
 
       mockRequest.flush(stubData);
       expect(response).toEqual(stubData);
