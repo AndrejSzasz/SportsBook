@@ -1,6 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
+import { MaterialModule } from '../../material/material.module';
 
 import { ListStadiumsComponent } from './list-stadiums.component';
+import { SbHttpService } from 'src/app/services/sb-http.service';
+
+const SbHttpStubService = {
+  get: function () {
+    return of([
+      {
+        id: '1',
+        name: 'NAME'
+      }
+    ]);
+  },
+};
 
 describe('ListStadiumsComponent', () => {
   let component: ListStadiumsComponent;
@@ -8,9 +22,13 @@ describe('ListStadiumsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ListStadiumsComponent ]
+      imports: [MaterialModule],
+      declarations: [ListStadiumsComponent],
+      providers: [
+        { provide: SbHttpService, useValue: SbHttpStubService }
+      ],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

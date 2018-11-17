@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { MaterialModule } from './material/material.module';
 
 import { AppComponent } from './app.component';
 import { LoginFormComponent } from './login-form/login-form.component';
@@ -14,14 +15,15 @@ import { ListStadiumsComponent } from './stadiums/list-stadiums/list-stadiums.co
   declarations: [
     AppComponent,
     LoginFormComponent,
-    ListStadiumsComponent
+    ListStadiumsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MaterialModule,
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]
