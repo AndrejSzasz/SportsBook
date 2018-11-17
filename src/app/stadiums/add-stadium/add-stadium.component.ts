@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { environment } from 'src/environments/environment';
 import { SbHttpService } from 'src/app/services/sb-http.service';
+import { formArrayNameProvider } from '@angular/forms/src/directives/reactive_directives/form_group_name';
 
 @Component({
   selector: 'sb-add-stadium',
@@ -19,7 +20,7 @@ export class AddStadiumComponent implements OnInit {
     console.log('addStadium init!');
     // Form setup corresponds to API model
     this.addForm = new FormGroup({
-      name: new FormControl(),
+      name: new FormControl('', [Validators.required]),
     });
   }
 
@@ -33,6 +34,14 @@ export class AddStadiumComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  onSubmit(event: Event) {
+    if (this.addForm.valid) {
+      this.addStadium();
+    } else {
+      return false;
+    }
   }
 
   onCancel(event: Event) {
