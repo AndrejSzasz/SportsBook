@@ -8,7 +8,7 @@ const LOGIN_DATA = {
   username: 'NAME',
   password: 'PASS'
 };
-const API_ENDPOINT = 'http://sportsbook-api.azurewebsites.net/api/login';
+const API_ENDPOINT = '//sportsbook-api.azurewebsites.net/api/login';
 const TOKEN = 'TOKEN';
 const mockError = new ErrorEvent('Network error', {
   message: 'some error message',
