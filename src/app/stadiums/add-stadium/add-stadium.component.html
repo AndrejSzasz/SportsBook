@@ -1,0 +1,13 @@
+<form [formGroup]="addForm" (ngSubmit)="addStadium()" novalidate>
+  <mat-form-field><input
+    matInput
+    type="text"
+    name="name"
+    formControlName="name"
+    placeholder="Stadium Name"
+    >
+  </mat-form-field>
+  <button type="submit" mat-button>Add</button>
+  <button mat-button (click)="onCancel($event)">Cancel</button>
+</form>
+

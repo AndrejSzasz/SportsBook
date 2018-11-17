@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { LoggedInGuard } from './guards/logged-in.guard';
 import { ListStadiumsComponent } from './stadiums/list-stadiums/list-stadiums.component';
+import { AddStadiumComponent } from './stadiums/add-stadium/add-stadium.component';
 
 const routes: Routes = [
   {
@@ -10,7 +11,7 @@ const routes: Routes = [
     component: ListStadiumsComponent,
     canActivate: [LoggedInGuard]
   },
-  { path: 'stadiums2', component: ListStadiumsComponent },
+  { path: 'stadiums2', component: AddStadiumComponent },
   { path: 'login', component: LoginFormComponent },
   { path: '**', redirectTo: '' }
 ];
