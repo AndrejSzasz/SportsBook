@@ -25,4 +25,15 @@ export class SbHttpService {
       }
     );
   }
+
+  post<T>(apiEndpoint: string, payload): Observable<T> {
+    return this.http.post<T>(
+      environment.API_URL + apiEndpoint,
+      payload,
+      {
+        headers: new HttpHeaders().set('Authorization', `Bearer ${this.authService.token}`)
+      }
+    );
+  }
+
 }
