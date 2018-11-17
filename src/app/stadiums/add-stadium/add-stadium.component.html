@@ -9,6 +9,6 @@
     <mat-error *ngIf="addForm.controls.name.invalid">Name cannot be empty!</mat-error>
   </mat-form-field>
   <button type="submit" mat-button>Add</button>
-  <button mat-button (click)="onCancel($event)">Cancel</button>
+  <button type="button" mat-button (click)="onCancel()">Cancel</button>
 </form>
 

@@ -3,7 +3,6 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { environment } from 'src/environments/environment';
 import { SbHttpService } from 'src/app/services/sb-http.service';
-import { formArrayNameProvider } from '@angular/forms/src/directives/reactive_directives/form_group_name';
 
 @Component({
   selector: 'sb-add-stadium',
@@ -36,7 +35,8 @@ export class AddStadiumComponent implements OnInit {
     );
   }
 
-  onSubmit(event: Event) {
+  onSubmit() {
+    console.log('onSubmit');
     if (this.addForm.valid) {
       this.addStadium();
     } else {
@@ -44,10 +44,9 @@ export class AddStadiumComponent implements OnInit {
     }
   }
 
-  onCancel(event: Event) {
+  onCancel() {
     console.log('cancel pressed');
     this.addForm.controls.name.setValue('');
-    event.preventDefault();
   }
 
 }
