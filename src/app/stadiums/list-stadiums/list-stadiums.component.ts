@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material';
+
 
 import { StadiumService, Stadium } from '../stadium.service';
 
@@ -13,7 +16,10 @@ export class ListStadiumsComponent implements OnInit {
   showAdd: boolean;
 
 
-  constructor(public service: StadiumService) { }
+  constructor(
+    private service: StadiumService,
+    private snackBar: MatSnackBar,
+  ) { }
 
   ngOnInit() {
     this.service.init();
@@ -29,14 +35,16 @@ export class ListStadiumsComponent implements OnInit {
   }
 
   onDelete(id) {
-    console.log('delete stadium clicked');
     this.service.deleteStadium(id).subscribe(
-      (response) => {
-        console.log(response);
+      () => {
         this.service.init();
       },
       (error) => {
-        console.log(error);
+        if (error instanceof HttpErrorResponse) {
+          this.snackBar.open(error.error, 'Dismiss');
+        } else {
+          throw error;
+        }
       },
     );
   }
