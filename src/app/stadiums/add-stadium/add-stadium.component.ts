@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
 import { HttpErrorResponse } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material';
 
 import { StadiumService } from '../stadium.service';
 
@@ -30,15 +30,15 @@ export class AddStadiumComponent implements OnInit {
 
   addStadium() {
     this.service.addStadium(this.addForm.value).subscribe(
-      (response) => {
+      () => {
         this.service.init();
         this.close.emit();
       },
       (error) => {
         if (error instanceof HttpErrorResponse) {
-          this.snackBar.open(error.statusText, 'OK');
+          this.snackBar.open(error.statusText, 'Dismiss');
         } else {
-          console.log(error);
+          throw error;
         }
       },
     );
