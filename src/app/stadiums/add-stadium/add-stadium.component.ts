@@ -1,5 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
+import { HttpErrorResponse } from '@angular/common/http';
 
 import { StadiumService } from '../stadium.service';
 
@@ -14,10 +16,12 @@ export class AddStadiumComponent implements OnInit {
   showAdd: boolean;
   @Output() close = new EventEmitter();
 
-  constructor(private service: StadiumService) { }
+  constructor(
+    private service: StadiumService,
+    private snackBar: MatSnackBar,
+  ) { }
 
   ngOnInit() {
-    console.log('addStadium init!');
     // Form setup corresponds to API model
     this.addForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
@@ -25,21 +29,22 @@ export class AddStadiumComponent implements OnInit {
   }
 
   addStadium() {
-    console.log('addStadium called!');
     this.service.addStadium(this.addForm.value).subscribe(
       (response) => {
-        console.log(response);
         this.service.init();
         this.close.emit();
       },
       (error) => {
-        console.log(error);
+        if (error instanceof HttpErrorResponse) {
+          this.snackBar.open(error.statusText, 'OK');
+        } else {
+          console.log(error);
+        }
       },
     );
   }
 
   onSubmit() {
-    console.log('onSubmit');
     if (this.addForm.valid) {
       this.addStadium();
     } else {
@@ -48,7 +53,6 @@ export class AddStadiumComponent implements OnInit {
   }
 
   onCancel() {
-    console.log('cancel pressed');
     this.addForm.controls.name.setValue('');
     this.close.emit();
   }

@@ -5,7 +5,9 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatListModule,
-  } from '@angular/material';
+  MatSnackBarModule,
+  MAT_SNACK_BAR_DEFAULT_OPTIONS,
+} from '@angular/material';
 
 @NgModule({
   imports: [
@@ -14,14 +16,19 @@ import {
     MatFormFieldModule,
     MatInputModule,
     MatListModule,
-      ],
+    MatSnackBarModule,
+  ],
   exports: [
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
     MatListModule,
-      ],
+    MatSnackBarModule,
+  ],
+  providers: [
+    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 5000 } }
+  ],
 })
 
 export class MaterialModule { }
