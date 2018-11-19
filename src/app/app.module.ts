@@ -12,6 +12,7 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { AuthService } from './services/auth.service';
 import { ListStadiumsComponent } from './stadiums/list-stadiums/list-stadiums.component';
 import { AddStadiumComponent } from './stadiums/add-stadium/add-stadium.component';
+import { SideMenuComponent } from './menu/side-menu/side-menu.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { AddStadiumComponent } from './stadiums/add-stadium/add-stadium.componen
     LoginFormComponent,
     ListStadiumsComponent,
     AddStadiumComponent,
+    SideMenuComponent,
   ],
   imports: [
     BrowserModule,
