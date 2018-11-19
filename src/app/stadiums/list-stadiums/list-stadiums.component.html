@@ -4,7 +4,7 @@
     <mat-card-subtitle>available on API</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    <mat-list *ngIf="stadiums$ | async as stadiums">
+    <mat-list *ngIf="service.stadiums$ | async as stadiums">
       <mat-list-item *ngFor="let item of stadiums">
         {{ item?.name }}
       </mat-list-item>
@@ -13,6 +13,7 @@
   <mat-card-actions align="start">
     <sb-add-stadium *ngIf="showAdd" (close)="showAdd = false"></sb-add-stadium>
     <button mat-button (click)="onAdd()" *ngIf="!showAdd">Add Stadium</button>
+    <button mat-button (click)="service.init()">Refresh</button>
   </mat-card-actions>
   <mat-card-footer>
     Footer of the "List of Stadiums" page

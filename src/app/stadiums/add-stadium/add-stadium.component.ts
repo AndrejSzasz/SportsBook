@@ -1,8 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
-import { environment } from 'src/environments/environment';
-import { SbHttpService } from 'src/app/services/sb-http.service';
+import { StadiumService } from '../stadium.service';
 
 @Component({
   selector: 'sb-add-stadium',
@@ -15,7 +14,7 @@ export class AddStadiumComponent implements OnInit {
   showAdd: boolean;
   @Output() close = new EventEmitter();
 
-  constructor(private http: SbHttpService) { }
+  constructor(private service: StadiumService) { }
 
   ngOnInit() {
     console.log('addStadium init!');
@@ -27,9 +26,10 @@ export class AddStadiumComponent implements OnInit {
 
   addStadium() {
     console.log('addStadium called!');
-    this.http.post<number>(environment.STADIUMS_SUFFIX, this.addForm.value).subscribe(
+    this.service.addStadium(this.addForm.value).subscribe(
       (response) => {
         console.log(response);
+        this.service.init();
         this.close.emit();
       },
       (error) => {
