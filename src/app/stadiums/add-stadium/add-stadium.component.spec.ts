@@ -56,7 +56,7 @@ fdescribe('AddStadiumComponent', () => {
   });
 
   it('should call .addStadium on non-empty form (happy path)', () => {
-    const addStadiumMethod: jasmine.Spy = spyOn(service, 'addStadium');
+    const addStadiumMethod: jasmine.Spy = spyOn(service, 'addStadium').and.callThrough();
     expect(addStadiumMethod).not.toHaveBeenCalled();
 
     fillForm(TEST_DATA);
