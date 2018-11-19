@@ -30,10 +30,11 @@ export class AddStadiumComponent implements OnInit {
     this.http.post<number>(environment.STADIUMS_SUFFIX, this.addForm.value).subscribe(
       (response) => {
         console.log(response);
+        this.close.emit();
       },
       (error) => {
         console.log(error);
-      }
+      },
     );
   }
 
@@ -49,7 +50,7 @@ export class AddStadiumComponent implements OnInit {
   onCancel() {
     console.log('cancel pressed');
     this.addForm.controls.name.setValue('');
-    this.close.emit(null);
+    this.close.emit();
   }
 
 }
