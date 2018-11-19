@@ -28,7 +28,21 @@ export class AddStadiumComponent implements OnInit {
     });
   }
 
-  addStadium() {
+  onSubmit() {
+    console.log('onbsubmiut', this.addForm);
+    if (this.addForm.valid) {
+      this.addStadium();
+    } else {
+      return false;
+    }
+  }
+
+  onCancel() {
+    this.addForm.controls.name.setValue('');
+    this.close.emit();
+  }
+
+  private addStadium() {
     this.service.addStadium(this.addForm.value).subscribe(
       () => {
         this.service.init();
@@ -42,19 +56,6 @@ export class AddStadiumComponent implements OnInit {
         }
       },
     );
-  }
-
-  onSubmit() {
-    if (this.addForm.valid) {
-      this.addStadium();
-    } else {
-      return false;
-    }
-  }
-
-  onCancel() {
-    this.addForm.controls.name.setValue('');
-    this.close.emit();
   }
 
 }
