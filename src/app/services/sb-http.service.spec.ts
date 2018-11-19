@@ -1,5 +1,10 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+  TestRequest,
+} from '@angular/common/http/testing';
+
 import { HttpErrorResponse } from '@angular/common/http';
 
 import { SbHttpService } from './sb-http.service';
@@ -16,7 +21,7 @@ interface Test {
   id: string;
   name: string;
 }
-const stubData: Array<Test> = [
+const returnedData: Array<Test> = [
   {
     id: '1',
     name: 'whatever'
@@ -27,7 +32,21 @@ const stubData: Array<Test> = [
   },
 ];
 
+const sentData: Array<Test> = [
+  {
+    id: '2',
+    name: 'whenever'
+  },
+  {
+    id: '-1',
+    name: 'wherever'
+  },
+];
+const returnedStatus = 1;
+
 const GET_ENDPOINT = '/fake/get';
+const POST_ENDPOINT = '/fake/post';
+const DELETE_ENDPOINT = '/fake/delete';
 
 describe('SbHttpService', () => {
   let service: SbHttpService;
@@ -55,7 +74,7 @@ describe('SbHttpService', () => {
   });
 
   describe('get() method', () => {
-    it('should call the api URL ', () => {
+    it('should call the api URL with authorization header', () => {
       let response: Array<Test>;
       let httpError: HttpErrorResponse;
 
@@ -73,9 +92,92 @@ describe('SbHttpService', () => {
       expect(mockRequest.request.headers.keys()).toContain('Authorization');
       expect(mockRequest.request.headers.get('Authorization')).toBe('Bearer ' + AuthStubService.token);
 
-      mockRequest.flush(stubData);
-      expect(response).toEqual(stubData);
+      mockRequest.flush(returnedData);
+      expect(response).toEqual(returnedData);
       expect(httpError).toBeUndefined('should NOT return an error');
     });
   });
+
+  describe('post() method', () => {
+    let response: Array<Test>;
+    let httpError: HttpErrorResponse;
+    let mockRequest: TestRequest;
+
+    beforeAll(() => {
+      service.post<Array<Test>>(POST_ENDPOINT, sentData).subscribe(
+        (value) => {
+          response = value;
+        },
+        (error) => {
+          httpError = error;
+        }
+      );
+      mockRequest = httpMock.expectOne(environment.API_URL + POST_ENDPOINT);
+    });
+
+    afterAll(() => {
+      httpMock.verify();
+      expect(httpError).toBeUndefined('should NOT return an error');
+    });
+
+    it('should call the api URL and return JSON', () => {
+      expect(mockRequest.cancelled).toBeFalsy();
+      expect(mockRequest.request.responseType).toEqual('json');
+    });
+
+    it('should send an authorization header', () => {
+
+      expect(mockRequest.request.headers.keys()).toContain('Authorization');
+      expect(mockRequest.request.headers.get('Authorization')).toBe('Bearer ' + AuthStubService.token);
+    });
+
+    it('should send correct data', () => {
+      expect(mockRequest.request.body).toEqual(sentData);
+    });
+
+    it('should get correct data', () => {
+      mockRequest.flush(returnedData);
+      expect(response).toEqual(returnedData);
+    });
+  });
+
+  describe('delete() method', () => {
+    let response: number;
+    let httpError: HttpErrorResponse;
+    let mockRequest: TestRequest;
+
+    beforeAll(() => {
+      service.delete<number>(DELETE_ENDPOINT).subscribe(
+        (value) => {
+          response = value;
+        },
+        (error) => {
+          httpError = error;
+        }
+      );
+      mockRequest = httpMock.expectOne(environment.API_URL + DELETE_ENDPOINT);
+    });
+
+    afterAll(() => {
+      httpMock.verify();
+      expect(httpError).toBeUndefined('should NOT return an error');
+    });
+
+    it('should call the api URL and return JSON', () => {
+      expect(mockRequest.cancelled).toBeFalsy();
+      expect(mockRequest.request.responseType).toEqual('json');
+    });
+
+    it('should send an authorization header', () => {
+
+      expect(mockRequest.request.headers.keys()).toContain('Authorization');
+      expect(mockRequest.request.headers.get('Authorization')).toBe('Bearer ' + AuthStubService.token);
+    });
+
+    it('should get correct data', () => {
+      mockRequest.flush(returnedStatus);
+      expect(response).toEqual(returnedStatus);
+    });
+  });
+
 });

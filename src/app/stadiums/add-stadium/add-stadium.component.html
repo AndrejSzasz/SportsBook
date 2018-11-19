@@ -1,0 +1,14 @@
+<form [formGroup]="addForm" (ngSubmit)="onSubmit()" novalidate>
+  <mat-form-field><input
+    matInput
+    type="text"
+    name="name"
+    formControlName="name"
+    placeholder="Stadium Name"
+    >
+    <mat-error *ngIf="addForm.controls.name.invalid">Name cannot be empty!</mat-error>
+  </mat-form-field>
+  <button type="submit" mat-button>Add</button>
+  <button type="button" mat-button (click)="onCancel()">Cancel</button>
+</form>
+

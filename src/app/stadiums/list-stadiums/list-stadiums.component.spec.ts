@@ -1,20 +1,25 @@
+import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { MaterialModule } from '../../material/material.module';
 
 import { ListStadiumsComponent } from './list-stadiums.component';
-import { SbHttpService } from 'src/app/services/sb-http.service';
+import { StadiumService } from '../stadium.service';
 
-const SbHttpStubService = {
-  get: function () {
-    return of([
-      {
-        id: '1',
-        name: 'NAME'
-      }
-    ]);
+const StadiumStubService = {
+  observable$ : of([
+    {
+      id: '1',
+      name: 'NAME'
+    }
+  ]),
+  init: function () {
+
   },
 };
+
+@Component({ selector: 'sb-add-stadium', template: '', })
+class AddStadiumStubComponent { }
 
 describe('ListStadiumsComponent', () => {
   let component: ListStadiumsComponent;
@@ -23,10 +28,14 @@ describe('ListStadiumsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [MaterialModule],
-      declarations: [ListStadiumsComponent],
-      providers: [
-        { provide: SbHttpService, useValue: SbHttpStubService }
+      declarations: [
+        ListStadiumsComponent,
+        AddStadiumStubComponent,
       ],
+      providers: [
+        { provide: StadiumService, useValue: StadiumStubService }
+      ],
+
     })
       .compileComponents();
   }));

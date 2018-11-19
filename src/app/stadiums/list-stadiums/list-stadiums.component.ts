@@ -1,13 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 
-import { SbHttpService } from 'src/app/services/sb-http.service';
-import { environment } from 'src/environments/environment';
+import { StadiumService, Stadium } from '../stadium.service';
 
-interface Stadium {
-  id: string;
-  name: string;
-}
 
 @Component({
   selector: 'sb-list-stadiums',
@@ -16,15 +10,34 @@ interface Stadium {
 })
 export class ListStadiumsComponent implements OnInit {
 
-  stadiums$: Observable<Array<Stadium>>;
+  showAdd: boolean;
 
-  constructor(private http: SbHttpService) { }
+
+  constructor(public service: StadiumService) { }
 
   ngOnInit() {
-    this.stadiums$ = this.listStadiums();
+    this.service.init();
+    this.showAdd = false;
   }
 
-  listStadiums() {
-    return this.http.get<Array<Stadium>>(environment.STADIUMS_SUFFIX);
+  trackById(index: number, stadium: Stadium): number {
+    return stadium.id;
+  }
+
+  onAdd() {
+    this.showAdd = true;
+  }
+
+  onDelete(id) {
+    console.log('delete stadium clicked');
+    this.service.deleteStadium(id).subscribe(
+      (response) => {
+        console.log(response);
+        this.service.init();
+      },
+      (error) => {
+        console.log(error);
+      },
+    );
   }
 }
