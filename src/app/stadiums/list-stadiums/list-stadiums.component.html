@@ -11,7 +11,8 @@
     </mat-list>
   </mat-card-content>
   <mat-card-actions align="start">
-    <button mat-button>Add Stadium (not implemented)</button>
+    <sb-add-stadium *ngIf="showAdd" (close)="showAdd = false"></sb-add-stadium>
+    <button mat-button (click)="onAdd()" *ngIf="!showAdd">Add Stadium</button>
   </mat-card-actions>
   <mat-card-footer>
     Footer of the "List of Stadiums" page

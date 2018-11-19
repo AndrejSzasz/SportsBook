@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { environment } from 'src/environments/environment';
@@ -12,6 +12,8 @@ import { SbHttpService } from 'src/app/services/sb-http.service';
 export class AddStadiumComponent implements OnInit {
 
   addForm: FormGroup;
+  showAdd: boolean;
+  @Output() close = new EventEmitter();
 
   constructor(private http: SbHttpService) { }
 
@@ -47,6 +49,7 @@ export class AddStadiumComponent implements OnInit {
   onCancel() {
     console.log('cancel pressed');
     this.addForm.controls.name.setValue('');
+    this.close.emit(null);
   }
 
 }

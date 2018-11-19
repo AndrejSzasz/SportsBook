@@ -11,7 +11,7 @@ const routes: Routes = [
     component: ListStadiumsComponent,
     canActivate: [LoggedInGuard]
   },
-  { path: 'stadiums2', component: AddStadiumComponent },
+  { path: 'stadiums2', component: ListStadiumsComponent },
   { path: 'login', component: LoginFormComponent },
   { path: '**', redirectTo: '' }
 ];

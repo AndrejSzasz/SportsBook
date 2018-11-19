@@ -16,15 +16,22 @@ interface Stadium {
 })
 export class ListStadiumsComponent implements OnInit {
 
+  showAdd: boolean;
+
   stadiums$: Observable<Array<Stadium>>;
 
   constructor(private http: SbHttpService) { }
 
   ngOnInit() {
     this.stadiums$ = this.listStadiums();
+    this.showAdd = false;
   }
 
   listStadiums() {
     return this.http.get<Array<Stadium>>(environment.STADIUMS_SUFFIX);
+  }
+
+  onAdd() {
+    this.showAdd = true;
   }
 }
