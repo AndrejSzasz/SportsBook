@@ -335,9 +335,11 @@ MIT
 
 @angular/material/list
 
-@angular/material/card
-
 @angular/material/button
+
+@angular/material/form-field
+
+@angular/material/card
 
 zone.js
 MIT
