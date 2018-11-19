@@ -18,6 +18,7 @@ script:
   - npm run lint
   - npm run test-ci
   - npm run build -- --prod --baseHref=https://andrejepam.github.io/SportsBook/
+  - cp dist/SportsBook/index.html dist/SportsBook/404.html
 
 deploy:
   provider: pages
