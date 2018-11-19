@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { SbHttpService } from '../services/sb-http.service';
@@ -16,7 +16,7 @@ interface Stadium {
 export class StadiumService {
 
   stadiums$: Observable<Array<Stadium>>;
-  trigger$: Subject<Boolean> = new Subject();
+  trigger$: ReplaySubject<Array<Stadium>> = new ReplaySubject(1);
 
   constructor(private http: SbHttpService) {
     console.log('service constr');
@@ -29,7 +29,7 @@ export class StadiumService {
 
   init() {
     console.log('service init');
-    this.trigger$.next(true);
+    this.trigger$.next();
   }
 
   addStadium(stadium): Observable<number> {
