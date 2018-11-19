@@ -29,7 +29,6 @@ export class AddStadiumComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('onbsubmiut', this.addForm);
     if (this.addForm.valid) {
       this.addStadium();
     } else {
