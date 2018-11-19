@@ -17,7 +17,7 @@ export class ListStadiumsComponent implements OnInit {
 
 
   constructor(
-    private service: StadiumService,
+    public service: StadiumService,
     private snackBar: MatSnackBar,
   ) { }
 
