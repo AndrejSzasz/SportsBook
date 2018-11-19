@@ -19,7 +19,7 @@ const StadiumStubService = {
 };
 const TEST_DATA = 'Stadium';
 
-fdescribe('AddStadiumComponent', () => {
+describe('AddStadiumComponent', () => {
   let component: AddStadiumComponent;
   let fixture: ComponentFixture<AddStadiumComponent>;
   let service: StadiumService;
