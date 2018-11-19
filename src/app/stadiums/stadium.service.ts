@@ -19,7 +19,6 @@ export class StadiumService {
   trigger$: ReplaySubject<Array<Stadium>> = new ReplaySubject(1);
 
   constructor(private http: SbHttpService) {
-    console.log('service constr');
     this.stadiums$ = this.trigger$.pipe(
       switchMap(
         () => this.http.get<Array<Stadium>>(environment.STADIUMS_SUFFIX)
@@ -28,17 +27,14 @@ export class StadiumService {
   }
 
   init() {
-    console.log('service init');
     this.trigger$.next();
   }
 
   addStadium(stadium): Observable<number> {
-    console.log('service addstadium');
     return this.http.post<number>(environment.STADIUMS_SUFFIX, stadium);
   }
 
   deleteStadium(id): Observable<number> {
-    console.log('service deletestadium');
     return this.http.delete<number>(`${environment.STADIUMS_SUFFIX}/${id}`);
   }
 }
