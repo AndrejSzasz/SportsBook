@@ -13,7 +13,7 @@ export class ListStadiumsComponent implements OnInit {
   showAdd: boolean;
 
 
-  constructor(private service: StadiumService) { }
+  constructor(public service: StadiumService) { }
 
   ngOnInit() {
     this.service.init();
@@ -27,4 +27,5 @@ export class ListStadiumsComponent implements OnInit {
   onAdd() {
     this.showAdd = true;
   }
+
 }
