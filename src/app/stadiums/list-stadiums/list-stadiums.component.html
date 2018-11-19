@@ -5,7 +5,7 @@
   </mat-card-header>
   <mat-card-content>
     <mat-list *ngIf="service.stadiums$ | async as stadiums">
-      <mat-list-item *ngFor="let item of stadiums">
+      <mat-list-item *ngFor="let item of stadiums; trackBy: trackById">
         {{ item?.name }}
       </mat-list-item>
     </mat-list>

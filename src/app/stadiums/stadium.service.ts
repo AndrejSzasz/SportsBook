@@ -5,8 +5,8 @@ import { switchMap } from 'rxjs/operators';
 import { SbHttpService } from '../services/sb-http.service';
 import { environment } from 'src/environments/environment';
 
-interface Stadium {
-  id: string;
+export interface Stadium {
+  id: number;
   name: string;
 }
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { StadiumService } from '../stadium.service';
+import { StadiumService, Stadium } from '../stadium.service';
 
 
 @Component({
@@ -18,6 +18,10 @@ export class ListStadiumsComponent implements OnInit {
   ngOnInit() {
     this.service.init();
     this.showAdd = false;
+  }
+
+  trackById(index: number, stadium: Stadium): number {
+    return stadium.id;
   }
 
   onAdd() {
