@@ -42,9 +42,11 @@ const sentData: Array<Test> = [
     name: 'wherever'
   },
 ];
+const returnedStatus = 1;
 
 const GET_ENDPOINT = '/fake/get';
 const POST_ENDPOINT = '/fake/post';
+const DELETE_ENDPOINT = '/fake/delete';
 
 describe('SbHttpService', () => {
   let service: SbHttpService;
@@ -138,4 +140,44 @@ describe('SbHttpService', () => {
       expect(response).toEqual(returnedData);
     });
   });
+
+  describe('delete() method', () => {
+    let response: number;
+    let httpError: HttpErrorResponse;
+    let mockRequest: TestRequest;
+
+    beforeAll(() => {
+      service.delete<number>(DELETE_ENDPOINT).subscribe(
+        (value) => {
+          response = value;
+        },
+        (error) => {
+          httpError = error;
+        }
+      );
+      mockRequest = httpMock.expectOne(environment.API_URL + DELETE_ENDPOINT);
+    });
+
+    afterAll(() => {
+      httpMock.verify();
+      expect(httpError).toBeUndefined('should NOT return an error');
+    });
+
+    it('should call the api URL and return JSON', () => {
+      expect(mockRequest.cancelled).toBeFalsy();
+      expect(mockRequest.request.responseType).toEqual('json');
+    });
+
+    it('should send an authorization header', () => {
+
+      expect(mockRequest.request.headers.keys()).toContain('Authorization');
+      expect(mockRequest.request.headers.get('Authorization')).toBe('Bearer ' + AuthStubService.token);
+    });
+
+    it('should get correct data', () => {
+      mockRequest.flush(returnedStatus);
+      expect(response).toEqual(returnedStatus);
+    });
+  });
+
 });

@@ -21,7 +21,7 @@ export class SbHttpService {
     return this.http.get<T>(
       environment.API_URL + apiEndpoint,
       {
-        headers: new HttpHeaders().set('Authorization', `Bearer ${this.authService.token}`)
+        headers: this.authorizationHeaders()
       }
     );
   }
@@ -31,9 +31,21 @@ export class SbHttpService {
       environment.API_URL + apiEndpoint,
       payload,
       {
-        headers: new HttpHeaders().set('Authorization', `Bearer ${this.authService.token}`)
+        headers: this.authorizationHeaders()
       }
     );
   }
 
+  delete<T>(apiEndpoint: string): Observable<T> {
+    return this.http.delete<T>(
+      environment.API_URL + apiEndpoint,
+      {
+        headers: this.authorizationHeaders()
+      }
+    );
+  }
+
+  private authorizationHeaders() {
+    return new HttpHeaders().set('Authorization', `Bearer ${this.authService.token}`);
+  }
 }

@@ -6,7 +6,7 @@
   <mat-card-content>
     <mat-list *ngIf="service.stadiums$ | async as stadiums">
       <mat-list-item *ngFor="let item of stadiums; trackBy: trackById">
-        {{ item?.name }}
+        {{ item?.name }} <button mat-button (click)="onDelete(item.id)">Delete</button>
       </mat-list-item>
     </mat-list>
   </mat-card-content>

@@ -28,4 +28,16 @@ export class ListStadiumsComponent implements OnInit {
     this.showAdd = true;
   }
 
+  onDelete(id) {
+    console.log('delete stadium clicked');
+    this.service.deleteStadium(id).subscribe(
+      (response) => {
+        console.log(response);
+        this.service.init();
+      },
+      (error) => {
+        console.log(error);
+      },
+    );
+  }
 }

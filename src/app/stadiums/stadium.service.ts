@@ -36,4 +36,9 @@ export class StadiumService {
     console.log('service addstadium');
     return this.http.post<number>(environment.STADIUMS_SUFFIX, stadium);
   }
+
+  deleteStadium(id): Observable<number> {
+    console.log('service deletestadium');
+    return this.http.delete<number>(`${environment.STADIUMS_SUFFIX}/${id}`);
+  }
 }
