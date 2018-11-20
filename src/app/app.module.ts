@@ -12,8 +12,7 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { AuthService } from './services/auth.service';
 import { ListStadiumsComponent } from './stadiums/list-stadiums/list-stadiums.component';
 import { AddStadiumComponent } from './stadiums/add-stadium/add-stadium.component';
-import { SideMenuComponent } from './menu/side-menu/side-menu.component';
-import { MenuLayoutComponent } from './menu/menu-layout/menu-layout.component';
+import { MenuModule } from './menu/menu.module';
 
 @NgModule({
   declarations: [
@@ -21,8 +20,6 @@ import { MenuLayoutComponent } from './menu/menu-layout/menu-layout.component';
     LoginFormComponent,
     ListStadiumsComponent,
     AddStadiumComponent,
-    SideMenuComponent,
-    MenuLayoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,6 +29,7 @@ import { MenuLayoutComponent } from './menu/menu-layout/menu-layout.component';
     ReactiveFormsModule,
     MaterialModule,
     NoopAnimationsModule,
+    MenuModule,
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]
