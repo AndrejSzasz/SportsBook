@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { EventService, Event } from '../event.service';
+import { EventService, SportsEvent } from '../event.service';
 
 @Component({
   selector: 'sb-list-events',
@@ -20,7 +20,7 @@ export class ListEventsComponent implements OnInit {
     this.showAdd = false;
   }
 
-  trackById(index: number, event: Event): number {
+  trackById(index: number, event: SportsEvent): number {
     return event.id;
   }
 

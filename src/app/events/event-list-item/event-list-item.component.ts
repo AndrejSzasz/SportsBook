@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Event } from '../event.service';
+import { SportsEvent } from '../event.service';
 
 @Component({
   selector: 'sb-event-list-item',
@@ -9,7 +9,7 @@ import { Event } from '../event.service';
 })
 export class EventListItemComponent implements OnInit {
 
-  @Input() item: Event;
+  @Input() item: SportsEvent;
 
   constructor() { }
 

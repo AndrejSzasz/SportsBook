@@ -4,7 +4,7 @@ import { MaterialModule } from '../../material/material.module';
 import { of } from 'rxjs';
 
 import { ListEventsComponent } from './list-events.component';
-import { EventService, Event } from '../event.service';
+import { EventService, SportsEvent } from '../event.service';
 
 const EventStubService = {
   events$ : of([
@@ -25,7 +25,7 @@ class AddEventStubComponent { }
 
 @Component({ selector: 'sb-event-list-item', template: '', })
 class EventListItemStubComponent {
-  @Input() item: Event;
+  @Input() item: SportsEvent;
 }
 
 describe('ListEventsComponent', () => {
