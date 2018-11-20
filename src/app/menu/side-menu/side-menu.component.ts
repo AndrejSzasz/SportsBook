@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SideMenuComponent implements OnInit {
 
+  compact: boolean;
+
   constructor() { }
 
   ngOnInit() {
+    this.compact = true;
   }
 
+  toggleCompact() {
+    this.compact = !this.compact;
+  }
 }

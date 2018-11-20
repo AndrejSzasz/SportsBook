@@ -1,4 +1,4 @@
-<a mat-list-item [routerLink]="link">
+<a mat-list-item (click)="onClick()">
   <mat-icon>{{ icon }}</mat-icon>
   <span><ng-content></ng-content></span>
 </a>
