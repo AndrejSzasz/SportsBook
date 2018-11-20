@@ -1,6 +1,27 @@
+import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MaterialModule } from '../../material/material.module';
+import { of } from 'rxjs';
 
 import { ListEventsComponent } from './list-events.component';
+import { EventService } from '../event.service';
+
+const EventStubService = {
+  events$ : of([
+    {
+      id: 0,
+      startTime: '2018-11-20T13:38:30.834Z',
+      name: 'NAME',
+      stadiumId: 0
+    }
+  ]),
+  init: function () {
+
+  },
+};
+
+@Component({ selector: 'sb-add-event', template: '', })
+class AddEventStubComponent { }
 
 describe('ListEventsComponent', () => {
   let component: ListEventsComponent;
@@ -8,7 +29,14 @@ describe('ListEventsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ListEventsComponent ]
+      imports: [MaterialModule],
+      declarations: [
+        ListEventsComponent,
+        AddEventStubComponent,
+       ],
+       providers: [
+        { provide: EventService, useValue: EventStubService }
+      ],
     })
     .compileComponents();
   }));
@@ -19,7 +47,7 @@ describe('ListEventsComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should be created', () => {
     expect(component).toBeTruthy();
   });
 });
