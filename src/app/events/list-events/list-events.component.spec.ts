@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MaterialModule } from '../../material/material.module';
 import { of } from 'rxjs';
 
 import { ListEventsComponent } from './list-events.component';
-import { EventService } from '../event.service';
+import { EventService, Event } from '../event.service';
 
 const EventStubService = {
   events$ : of([
@@ -23,6 +23,11 @@ const EventStubService = {
 @Component({ selector: 'sb-add-event', template: '', })
 class AddEventStubComponent { }
 
+@Component({ selector: 'sb-event-list-item', template: '', })
+class EventListItemStubComponent {
+  @Input() item: Event;
+}
+
 describe('ListEventsComponent', () => {
   let component: ListEventsComponent;
   let fixture: ComponentFixture<ListEventsComponent>;
@@ -33,6 +38,7 @@ describe('ListEventsComponent', () => {
       declarations: [
         ListEventsComponent,
         AddEventStubComponent,
+        EventListItemStubComponent,
        ],
        providers: [
         { provide: EventService, useValue: EventStubService }
