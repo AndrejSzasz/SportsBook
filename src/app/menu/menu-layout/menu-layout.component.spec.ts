@@ -1,6 +1,16 @@
+import { Component, Injectable } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MenuLayoutComponent } from './menu-layout.component';
+import { AuthService } from 'src/app/services/auth.service';
+
+@Component({ selector: 'sb-side-menu', template: '' })
+class SideMenuStubComponent { }
+
+@Injectable()
+class AuthStubService {
+  isAuthenticated() { }
+}
 
 describe('MenuLayoutComponent', () => {
   let component: MenuLayoutComponent;
@@ -8,9 +18,15 @@ describe('MenuLayoutComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MenuLayoutComponent ]
+      declarations: [
+        MenuLayoutComponent,
+        SideMenuStubComponent,
+      ],
+      providers: [
+        { provide: AuthService, useClass: AuthStubService }
+      ],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
