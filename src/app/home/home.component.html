@@ -1,3 +1,9 @@
 <aside>
   Test link without login:  <a routerLink="/test">TEST</a>.
 </aside>
+<button
+  mat-raised-button
+  routerLink="/login"
+  *ngIf="!authService.isAuthenticated()">
+    <mat-icon>account_box</mat-icon>Log In</button>
+

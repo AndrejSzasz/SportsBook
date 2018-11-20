@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+import { AuthService } from '../services/auth.service';
+
 @Component({
   selector: 'sb-home',
   templateUrl: './home.component.html',
@@ -9,7 +11,7 @@ export class HomeComponent implements OnInit {
 
   @Input() title: string;
 
-  constructor() { }
+  constructor(public authService: AuthService) { }
 
   ngOnInit() {
   }

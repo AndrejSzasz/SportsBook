@@ -1,6 +1,16 @@
+import { Injectable } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MaterialModule } from '../material/material.module';
 
 import { HomeComponent } from './home.component';
+import { AuthService } from '../services/auth.service';
+
+
+@Injectable()
+class AuthStubService {
+  isAuthenticated() { }
+}
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -8,7 +18,14 @@ describe('HomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomeComponent ]
+      imports: [
+        RouterTestingModule,
+        MaterialModule,
+      ],
+      declarations: [ HomeComponent ],
+      providers: [
+        { provide: AuthService, useClass: AuthStubService }
+      ],
     })
     .compileComponents();
   }));
