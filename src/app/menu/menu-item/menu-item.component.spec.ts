@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { MenuItemComponent } from './menu-item.component';
 
@@ -17,6 +18,9 @@ describe('MenuItemComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        RouterTestingModule,
+      ],
       declarations: [
         MenuItemComponent,
         MatIconStubComponent,
