@@ -13,6 +13,7 @@ import { AuthService } from './services/auth.service';
 import { ListStadiumsComponent } from './stadiums/list-stadiums/list-stadiums.component';
 import { AddStadiumComponent } from './stadiums/add-stadium/add-stadium.component';
 import { SideMenuComponent } from './menu/side-menu/side-menu.component';
+import { MenuLayoutComponent } from './menu/menu-layout/menu-layout.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { SideMenuComponent } from './menu/side-menu/side-menu.component';
     ListStadiumsComponent,
     AddStadiumComponent,
     SideMenuComponent,
+    MenuLayoutComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,11 +1,15 @@
-<router-outlet>
-  <div style="text-align:center">
-    <h1>
-      Welcome to {{ title }}!
-    </h1>
-  </div>
+<aside>
   Test links
   <a routerLink="/home">Home</a>,
   <a routerLink="/stadiums">Stadiums</a>,
   <a routerLink="/stadiums2">TEST</a>.
-</router-outlet>
+</aside>
+<sb-menu-layout>
+  <router-outlet>
+    <div style="text-align:center">
+      <h1>
+        Welcome to {{ title }}!
+      </h1>
+    </div>
+  </router-outlet>
+</sb-menu-layout>
