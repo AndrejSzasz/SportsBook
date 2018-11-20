@@ -1,6 +1,10 @@
+import { Component } from '@angular/core';
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+
+@Component({ selector: 'sb-menu-layout', template: '<ng-content></ng-content>' })
+class MenuStubLayoutComponent { }
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -9,7 +13,8 @@ describe('AppComponent', () => {
         RouterTestingModule
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+        MenuStubLayoutComponent,
       ],
     }).compileComponents();
   }));

@@ -12,6 +12,7 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { AuthService } from './services/auth.service';
 import { ListStadiumsComponent } from './stadiums/list-stadiums/list-stadiums.component';
 import { AddStadiumComponent } from './stadiums/add-stadium/add-stadium.component';
+import { MenuModule } from './menu/menu.module';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { AddStadiumComponent } from './stadiums/add-stadium/add-stadium.componen
     ReactiveFormsModule,
     MaterialModule,
     NoopAnimationsModule,
+    MenuModule,
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

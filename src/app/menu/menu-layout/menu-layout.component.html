@@ -1,0 +1,6 @@
+<div id="grid">
+  <sb-side-menu *ngIf="authService.isAuthenticated()">AUTH works</sb-side-menu>
+  <main>
+    <ng-content></ng-content>
+  </main>
+</div>
