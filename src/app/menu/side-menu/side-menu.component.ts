@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { SbPersistentStorageService } from 'src/app/services/sb-persistent-storage.service';
+
 @Component({
   selector: 'sb-side-menu',
   templateUrl: './side-menu.component.html',
@@ -8,14 +10,16 @@ import { Component, OnInit } from '@angular/core';
 export class SideMenuComponent implements OnInit {
 
   compact: boolean;
+  STORAGE_KEY = 'compact';
 
-  constructor() { }
+  constructor(private sbPersistentStorageService: SbPersistentStorageService) { }
 
   ngOnInit() {
-    this.compact = true;
+    this.compact = this.sbPersistentStorageService.retrieve(this.STORAGE_KEY);
   }
 
   toggleCompact() {
     this.compact = !this.compact;
+    this.sbPersistentStorageService.save('compact', this.compact);
   }
 }

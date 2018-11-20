@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { SideMenuComponent } from './side-menu/side-menu.component';
 import { MenuLayoutComponent } from './menu-layout/menu-layout.component';
 import { MenuItemComponent } from './menu-item/menu-item.component';
+import { SbPersistentStorageService } from '../services/sb-persistent-storage.service';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,9 @@ import { MenuItemComponent } from './menu-item/menu-item.component';
   ],
   exports: [
     MenuLayoutComponent,
+  ],
+  providers: [
+    SbPersistentStorageService,
   ]
 })
 export class MenuModule { }
