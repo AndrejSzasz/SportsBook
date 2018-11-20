@@ -4,8 +4,14 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { LoggedInGuard } from './guards/logged-in.guard';
 import { ListStadiumsComponent } from './stadiums/list-stadiums/list-stadiums.component';
 import { ListEventsComponent } from './events/list-events/list-events.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
+  {
+    path: '',
+    component: HomeComponent,
+    pathMatch: 'full'
+  },
   {
     path: 'events',
     component: ListEventsComponent,

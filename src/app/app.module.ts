@@ -14,6 +14,7 @@ import { ListStadiumsComponent } from './stadiums/list-stadiums/list-stadiums.co
 import { AddStadiumComponent } from './stadiums/add-stadium/add-stadium.component';
 import { MenuModule } from './menu/menu.module';
 import { EventsModule } from './events/events.module';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { EventsModule } from './events/events.module';
     LoginFormComponent,
     ListStadiumsComponent,
     AddStadiumComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
