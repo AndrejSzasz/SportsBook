@@ -13,6 +13,8 @@ import { AuthService } from './services/auth.service';
 import { ListStadiumsComponent } from './stadiums/list-stadiums/list-stadiums.component';
 import { AddStadiumComponent } from './stadiums/add-stadium/add-stadium.component';
 import { MenuModule } from './menu/menu.module';
+import { EventsModule } from './events/events.module';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,7 @@ import { MenuModule } from './menu/menu.module';
     LoginFormComponent,
     ListStadiumsComponent,
     AddStadiumComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,6 +33,7 @@ import { MenuModule } from './menu/menu.module';
     MaterialModule,
     NoopAnimationsModule,
     MenuModule,
+    EventsModule,
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

@@ -1,0 +1,15 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>List of Events</mat-card-title>
+    <mat-card-subtitle>loaded fresh from the API</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-list>
+      <mat-list-item *ngFor="let event of (service.events$ | async); trackBy: trackById">
+        <sb-event-list-item [item]="event"></sb-event-list-item>
+      </mat-list-item>
+      <mat-list-item *ngIf="showAdd">
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>
