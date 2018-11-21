@@ -59,7 +59,7 @@ describe('EventService', () => {
     expect(service.events$ instanceof Observable).toBeTruthy();
   });
 
-  xit('should pass the data coming from the API', fakeAsync(() => {
+  it('should pass the data coming from the API', fakeAsync(() => {
     let result: Array<SportsEvent>;
     const service: EventService = TestBed.get(EventService);
     service.events$.subscribe(
@@ -71,26 +71,33 @@ describe('EventService', () => {
     expect(result).toEqual(GET_DATA);
   }));
 
-  xdescribe('addEvent method', () => {
+  describe('addEvent method', () => {
 
-    let result: number;
     let service: EventService;
-    // let addEventSpy: jasmine.Spy;
 
     beforeEach(() => {
       // GIVEN
       service = TestBed.get(EventService);
-      // addEventSpy = spyOn(service, 'addEvent').and.callThrough();
     });
 
-    it('should post data to the API', fakeAsync(() => {
+    it('should post data to the API', () => {
+      const postSpy = spyOn(TestBed.get(SbHttpService), 'post');
       // WHEN
-      // service.addEvent(POST_DATA).subscribe(
-      //   (value) => { result = value; }
-      // );
-      expect(result).toBeUndefined();
-      // tick(ASYNC_DELAY);
-      // expect(result).toEqual(POST_REPLY);
+      service.addEvent(POST_DATA);
+      // THEN
+      expect(postSpy).toHaveBeenCalledWith(environment.EVENTS_SUFFIX, POST_DATA);
+    });
+
+    it('should return the result of the post', fakeAsync(() => {
+      let result: number;
+      // WHEN
+      service.addEvent(POST_DATA).subscribe(
+        (value) => { result = value; }
+      );
+
+      // THEN
+      tick(ASYNC_DELAY);
+      expect(result).toEqual(POST_REPLY);
     }));
 
   });
