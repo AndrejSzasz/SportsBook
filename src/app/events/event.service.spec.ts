@@ -1,9 +1,10 @@
 import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { of, Observable } from 'rxjs';
-import { delay } from 'rxjs/operators';
+// import { delay } from 'rxjs/operators';
 
 import { EventService, SportsEvent } from './event.service';
 import { SbHttpService } from 'src/app/services/sb-http.service';
+import { environment } from 'src/environments/environment';
 
 const GET_DATA: Array<SportsEvent> = [{
   id: 0,
@@ -26,7 +27,7 @@ const ASYNC_DELAY = 500;
 function getObservable<T>(data: T): Observable<T> {
   return of(
     data
-  ).pipe(delay(ASYNC_DELAY));
+  ); // .pipe(delay(ASYNC_DELAY));
 }
 
 const SbHttpStubService = {
