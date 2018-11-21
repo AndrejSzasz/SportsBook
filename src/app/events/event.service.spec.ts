@@ -1,6 +1,6 @@
 import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { of, Observable } from 'rxjs';
-// import { delay } from 'rxjs/operators';
+import { debounceTime } from 'rxjs/operators';
 
 import { EventService, SportsEvent } from './event.service';
 import { SbHttpService } from 'src/app/services/sb-http.service';
@@ -23,11 +23,11 @@ const TEST_OBSERVABLE_POST: Observable<number> = getObservable(POST_REPLY);
 const DELETE_REPLY = 1;
 const TEST_OBSERVABLE_DELETE: Observable<number> = getObservable(DELETE_REPLY);
 
-const ASYNC_DELAY = 500;
+const ASYNC_DELAY = 5000;
 function getObservable<T>(data: T): Observable<T> {
   return of(
     data
-  ); // .pipe(delay(ASYNC_DELAY));
+  ).pipe(debounceTime(ASYNC_DELAY));
 }
 
 const SbHttpStubService = {
