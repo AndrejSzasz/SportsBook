@@ -6,7 +6,7 @@ import { SbHttpService } from '../services/sb-http.service';
 import { environment } from 'src/environments/environment';
 
 export interface SportsEvent {
-  id: number;
+  id?: number;
   startTime: string; // FIXME convert to datetime format "2018-11-20T13:38:30.834Z";
   name: string;
   stadiumId: number;
@@ -32,11 +32,11 @@ export class EventService {
     this.trigger$.next();
   }
 
-  addStadium(stadium): Observable<number> {
-    return this.http.post<number>(environment.EVENTS_SUFFIX, stadium);
+  addEvent(event: SportsEvent): Observable<number> {
+    return this.http.post<number>(environment.EVENTS_SUFFIX, event);
   }
 
-  deleteStadium(id): Observable<number> {
+  deleteEvent(id: number): Observable<number> {
     return this.http.delete<number>(`${environment.EVENTS_SUFFIX}/${id}`);
   }
 }
