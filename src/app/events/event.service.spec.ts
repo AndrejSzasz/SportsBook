@@ -20,6 +20,7 @@ const POST_DATA: SportsEvent = {
 };
 const POST_REPLY = 1;
 const TEST_OBSERVABLE_POST: Observable<number> = getObservable(POST_REPLY);
+const DELETE_DATA = 1;
 const DELETE_REPLY = 1;
 const TEST_OBSERVABLE_DELETE: Observable<number> = getObservable(DELETE_REPLY);
 
@@ -102,4 +103,34 @@ describe('EventService', () => {
 
   });
 
+  describe('deleteEvent method', () => {
+
+    let service: EventService;
+
+    beforeEach(() => {
+      // GIVEN
+      service = TestBed.get(EventService);
+    });
+
+    it('should post data to the API', () => {
+      const deleteSpy = spyOn(TestBed.get(SbHttpService), 'delete');
+      // WHEN
+      service.deleteEvent(DELETE_DATA);
+      // THEN
+      expect(deleteSpy).toHaveBeenCalledWith(environment.EVENTS_SUFFIX + '/' + DELETE_DATA);
+    });
+
+    it('should return the result of the delete', fakeAsync(() => {
+      let result: number;
+      // WHEN
+      service.deleteEvent(DELETE_DATA).subscribe(
+        (value) => { result = value; }
+      );
+
+      // THEN
+      tick(ASYNC_DELAY);
+      expect(result).toEqual(DELETE_REPLY);
+    }));
+
+  });
 });
