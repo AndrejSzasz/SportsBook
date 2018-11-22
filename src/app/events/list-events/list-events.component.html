@@ -10,6 +10,9 @@
         <h3 matLine> {{ event.name }} </h3>
         <p matLine>when: {{ event.startTime | date }}</p>
         <p matLine>where: {{ event.stadiumId }}</p>
+        <button mat-fab (click)="onDelete(event.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
         <mat-divider></mat-divider>
       </mat-list-item>
       <mat-list-item>
