@@ -1,3 +1,29 @@
-<p>
-  add-event works!
-</p>
+<form [formGroup]="addForm" (ngSubmit)="onSubmit()" novalidate>
+  <mat-form-field><input
+    matInput
+    type="text"
+    name="name"
+    formControlName="name"
+    placeholder="Stadium Name"
+    >
+    <mat-error *ngIf="addForm.controls.name.invalid">Name cannot be empty!</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+      <input
+        formControlName="startTime"
+        matInput [matDatepicker]="datepicker"
+        placeholder="Choose a date"
+      >
+      <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+      <mat-datepicker #datepicker touchUi="true"></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="Select Stadium">
+      <mat-option *ngFor="let stadium of (stadiumService.stadiums$ | async)">{{ stadium.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button type="submit" mat-button-raised>Add</button>
+  <button type="button" mat-button-raised (click)="onCancel()">Cancel</button>
+</form>
+
+
