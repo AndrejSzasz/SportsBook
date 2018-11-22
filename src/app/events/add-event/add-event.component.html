@@ -2,28 +2,35 @@
   <mat-form-field><input
     matInput
     type="text"
-    name="name"
-    formControlName="name"
-    placeholder="Stadium Name"
+    name="title"
+    formControlName="title"
+    placeholder="Event Title"
     >
-    <mat-error *ngIf="addForm.controls.name.invalid">Name cannot be empty!</mat-error>
+    <mat-error *ngIf="addForm.controls.title.invalid">Title cannot be empty!</mat-error>
   </mat-form-field>
   <mat-form-field>
-      <input
-        formControlName="startTime"
-        matInput [matDatepicker]="datepicker"
-        placeholder="Choose a date"
-      >
-      <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
-      <mat-datepicker #datepicker touchUi="true"></mat-datepicker>
+    <input
+      formControlName="startTime"
+      matInput [matDatepicker]="datepicker"
+      placeholder="Choose a date"
+    >
+    <mat-error *ngIf="addForm.controls.startTime.invalid">Please specify a start date!</mat-error>
+    <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+    <mat-datepicker #datepicker touchUi="true"></mat-datepicker>
   </mat-form-field>
   <mat-form-field>
-    <mat-select placeholder="Select Stadium">
-      <mat-option *ngFor="let stadium of (stadiumService.stadiums$ | async)">{{ stadium.name }}</mat-option>
+    <mat-select
+      formControlName="stadiumId"
+      placeholder="Select Stadium">
+      <mat-option
+        *ngFor="let stadium of (stadiumService.stadiums$ | async)"
+        [value]="stadium.id"
+      >{{ stadium.name }}</mat-option>
     </mat-select>
+    <mat-error *ngIf="addForm.controls.stadiumId.invalid">Please select a stadium!</mat-error>
   </mat-form-field>
-  <button type="submit" mat-button-raised>Add</button>
-  <button type="button" mat-button-raised (click)="onCancel()">Cancel</button>
+  <button type="submit" mat-raised-button>Add</button>
+  <button type="button" mat-raised-button (click)="onCancel()">Cancel</button>
 </form>
 
 
