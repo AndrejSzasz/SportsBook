@@ -47,9 +47,6 @@ export class AddEventComponent implements OnInit, OnDestroy {
             throw error;
           }
         },
-        () => {
-          console.log('stadiumService observable completed!');
-        }
       );
     this.stadiumService.init();
     this.showAdd = false;
