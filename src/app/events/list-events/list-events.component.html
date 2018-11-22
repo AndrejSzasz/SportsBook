@@ -6,7 +6,11 @@
   <mat-card-content>
     <mat-list>
       <mat-list-item *ngFor="let event of (service.events$ | async); trackBy: trackById">
-        <sb-event-list-item [item]="event"></sb-event-list-item>
+        <mat-icon matListIcon>event</mat-icon>
+        <h3 matLine> {{ event.name }} </h3>
+        <p matLine>when: {{ event.startTime | date }}</p>
+        <p matLine>where: {{ event.stadiumId }}</p>
+        <mat-divider></mat-divider>
       </mat-list-item>
       <mat-list-item *ngIf="showAdd">
       </mat-list-item>
