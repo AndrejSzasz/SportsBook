@@ -12,11 +12,8 @@
         <p matLine>where: {{ event.stadiumId }}</p>
         <mat-divider></mat-divider>
       </mat-list-item>
-      <mat-list-item *ngIf="showAdd">
-        <sb-add-event (close)="showAdd = false"></sb-add-event>
-      </mat-list-item>
       <mat-list-item>
-        <button mat-raised-button (click)="onAdd()" [disabled]="showAdd">
+        <button mat-raised-button (click)="onAdd()">
           <mat-icon class="mat-18">add</mat-icon>Add Event
         </button>
       </mat-list-item>

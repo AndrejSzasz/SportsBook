@@ -11,8 +11,6 @@ import { AddEventComponent } from '../add-event/add-event.component';
 })
 export class ListEventsComponent implements OnInit {
 
-  showAdd: boolean;
-
   constructor(
     public service: EventService,
     public dialog: MatDialog,
@@ -20,7 +18,6 @@ export class ListEventsComponent implements OnInit {
 
   ngOnInit() {
     this.service.init();
-    this.showAdd = false;
   }
 
   trackById(index: number, event: SportsEvent): number {
