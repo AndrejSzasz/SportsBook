@@ -23,5 +23,8 @@ import { AddEventComponent } from './add-event/add-event.component';
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-US' },
   ],
+  entryComponents: [
+    AddEventComponent
+  ]
 })
 export class EventsModule { }

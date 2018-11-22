@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialogRef } from '@angular/material';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -17,7 +17,6 @@ export class AddEventComponent implements OnInit, OnDestroy {
 
   addForm: FormGroup;
   showAdd: boolean;
-  @Output() close = new EventEmitter();
   stadiums: Array<Stadium>;
   destroy$: Subject<void> = new Subject();
 
@@ -25,6 +24,7 @@ export class AddEventComponent implements OnInit, OnDestroy {
     public eventService: EventService,
     public stadiumService: StadiumService,
     private snackBar: MatSnackBar,
+    public dialogRef: MatDialogRef<AddEventComponent>
   ) { }
 
   ngOnInit() {
@@ -66,19 +66,20 @@ export class AddEventComponent implements OnInit, OnDestroy {
   }
 
   onCancel() {
-    this.close.emit();
+    this.dialogRef.close();
   }
 
   private addEvent() {
     this.eventService.addEvent(this.addForm.value).subscribe(
       () => {
         this.eventService.init();
-        this.close.emit();
+        this.dialogRef.close();
       },
       (error) => {
         if (error instanceof HttpErrorResponse) {
           this.snackBar.open(error.statusText, 'Dismiss');
         } else {
+          console.log('CATCHED:', error);
           throw error;
         }
       },

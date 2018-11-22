@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
 
 import { EventService, SportsEvent } from '../event.service';
+import { AddEventComponent } from '../add-event/add-event.component';
 
 @Component({
   selector: 'sb-list-events',
@@ -13,6 +15,7 @@ export class ListEventsComponent implements OnInit {
 
   constructor(
     public service: EventService,
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit() {
@@ -25,9 +28,26 @@ export class ListEventsComponent implements OnInit {
   }
 
   onAdd() {
-    this.showAdd = true;
+    // this.showAdd = true;
+    this.openDialog();
   }
 
   onDelete(id) {
+  }
+
+  private openDialog(): void {
+    const dialogRef = this.dialog.open(AddEventComponent, {
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed with result', result);
+    },
+    (error) => {
+      console.log('Dialog errored with', error);
+    },
+    () => {
+      console.log('dialog completed');
+    }
+    );
   }
 }
