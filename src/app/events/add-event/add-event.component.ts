@@ -30,7 +30,7 @@ export class AddEventComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // Form setup corresponds to API model
     this.addForm = new FormGroup({
-      title: new FormControl('', [Validators.required]),
+      name: new FormControl('', [Validators.required]),
       startTime: new FormControl('', [Validators.required]),
       stadiumId: new FormControl('', [Validators.required]),
     });
@@ -69,7 +69,6 @@ export class AddEventComponent implements OnInit, OnDestroy {
   }
 
   onCancel() {
-    this.addForm.controls.name.setValue('');
     this.close.emit();
   }
 
