@@ -5,18 +5,30 @@ import { of } from 'rxjs';
 
 import { ListEventsComponent } from './list-events.component';
 import { EventService, SportsEvent } from '../event.service';
+import { StadiumService } from 'src/app/stadiums/stadium.service';
+
 
 const EventStubService = {
   events$ : of([
     {
       id: 0,
       startTime: '2018-11-20T13:38:30.834Z',
-      name: 'NAME',
+      name: 'EVENT',
       stadiumId: 0
     }
   ]),
   init: function () {
+  },
+};
 
+const StadiumStubService = {
+  stadiums$ : of([
+    {
+      id: 0,
+      name: 'STADIUM',
+    }
+  ]),
+  init: function () {
   },
 };
 
@@ -41,7 +53,8 @@ describe('ListEventsComponent', () => {
         EventListItemStubComponent,
        ],
        providers: [
-        { provide: EventService, useValue: EventStubService }
+        { provide: EventService, useValue: EventStubService },
+        { provide: StadiumService, useValue: StadiumStubService }
       ],
     })
     .compileComponents();

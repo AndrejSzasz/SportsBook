@@ -5,11 +5,11 @@
   </mat-card-header>
   <mat-card-content>
     <mat-list>
-      <mat-list-item *ngFor="let event of (service.events$ | async); trackBy: trackById">
+      <mat-list-item *ngFor="let event of (eventService.events$ | async); trackBy: trackById">
         <mat-icon matListIcon>event</mat-icon>
         <h3 matLine> {{ event.name }} </h3>
         <p matLine>when: {{ event.startTime | date }}</p>
-        <p matLine>where: {{ event.stadiumId }}</p>
+        <p matLine>where: {{ getStadium(event.stadiumId) }}</p>
         <button mat-mini-fab (click)="onDelete(event.id)">
           <mat-icon>delete</mat-icon>
         </button>

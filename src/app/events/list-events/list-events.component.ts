@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatDialog, MatSnackBar } from '@angular/material';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { EventService, SportsEvent } from '../event.service';
+import { StadiumService, Stadium } from 'src/app/stadiums/stadium.service';
 import { AddEventComponent } from '../add-event/add-event.component';
 
 @Component({
@@ -10,16 +13,40 @@ import { AddEventComponent } from '../add-event/add-event.component';
   templateUrl: './list-events.component.html',
   styleUrls: ['./list-events.component.scss']
 })
-export class ListEventsComponent implements OnInit {
+export class ListEventsComponent implements OnInit, OnDestroy {
+
+  stadiums: Array<Stadium>;
+  destroy$: Subject<void> = new Subject();
 
   constructor(
-    public service: EventService,
+    public eventService: EventService,
+    public stadiumService: StadiumService,
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit() {
-    this.service.init();
+    this.eventService.init();
+    this.stadiumService.stadiums$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
+        (result) => {
+          this.stadiums = result;
+        },
+        (error) => {
+          if (error instanceof HttpErrorResponse) {
+            this.snackBar.open(error.error, 'Dismiss');
+          } else {
+            throw error;
+          }
+        },
+      );
+    this.stadiumService.init();
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.unsubscribe();
   }
 
   trackById(index: number, event: SportsEvent): number {
@@ -31,9 +58,9 @@ export class ListEventsComponent implements OnInit {
   }
 
   onDelete(id) {
-    this.service.deleteEvent(id).subscribe(
+    this.eventService.deleteEvent(id).subscribe(
       () => {
-        this.service.init();
+        this.eventService.init();
       },
       (error) => {
         if (error instanceof HttpErrorResponse) {
@@ -43,6 +70,13 @@ export class ListEventsComponent implements OnInit {
         }
       },
     );
+  }
+
+  getStadium(id) {
+    const stadium = this.stadiums.filter(item => item.id === id);
+    return (stadium.length > 0) ?
+      stadium[0].name :
+      'Cannot find stadium!';
   }
 
   private openDialog(): void {
