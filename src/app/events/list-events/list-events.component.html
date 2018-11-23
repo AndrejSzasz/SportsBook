@@ -6,9 +6,22 @@
   <mat-card-content>
     <mat-list>
       <mat-list-item *ngFor="let event of (service.events$ | async); trackBy: trackById">
-        <sb-event-list-item [item]="event"></sb-event-list-item>
+        <mat-icon matListIcon>event</mat-icon>
+        <h3 matLine> {{ event.name }} </h3>
+        <p matLine>when: {{ event.startTime | date }}</p>
+        <p matLine>where: {{ event.stadiumId }}</p>
+        <button mat-mini-fab (click)="onDelete(event.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <mat-divider></mat-divider>
       </mat-list-item>
-      <mat-list-item *ngIf="showAdd">
+      <mat-list-item>
+        <button mat-raised-button (click)="onAdd()">
+          <mat-icon class="mat-18">add</mat-icon>Add Event
+        </button>
+        <button mat-fab (click)="onAdd()">
+          <mat-icon class="mat-18">add</mat-icon>
+        </button>
       </mat-list-item>
     </mat-list>
   </mat-card-content>
