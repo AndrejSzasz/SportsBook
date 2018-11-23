@@ -27,7 +27,12 @@ export class AuthService {
       );
   }
 
-  public isAuthenticated() {
+  logout() {
+    this.token = '';
+  }
+
+  isAuthenticated() {
     return !!this.token;
   }
+
 }

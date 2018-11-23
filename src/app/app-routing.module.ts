@@ -5,6 +5,7 @@ import { LoggedInGuard } from './guards/logged-in.guard';
 import { ListStadiumsComponent } from './stadiums/list-stadiums/list-stadiums.component';
 import { ListEventsComponent } from './events/list-events/list-events.component';
 import { HomeComponent } from './home/home.component';
+import { LogoutComponent } from './logout/logout.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,7 @@ const routes: Routes = [
   },
   { path: 'test', component: ListEventsComponent },
   { path: 'login', component: LoginFormComponent },
+  { path: 'logout', component: LogoutComponent },
   { path: '**', redirectTo: '' }
 ];
 
