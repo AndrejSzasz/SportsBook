@@ -339,11 +339,19 @@ MIT
 
 @angular/material/list
 
+@angular/material/divider
+
 @angular/material/card
 
 @angular/material/form-field
 
+@angular/material/dialog
+
+@angular/material/datepicker
+
 @angular/material/snack-bar
+
+@angular/material/select
 
 zone.js
 MIT
