@@ -28,7 +28,7 @@ const ASYNC_DELAY = 5000;
 function getObservable<T>(data: T): Observable<T> {
   return of(
     data
-  ).pipe(debounceTime(ASYNC_DELAY));
+  ).pipe(debounceTime(5000)); // workaround for ReferenceError: Cannot access 'ASYNC_DELAY' before initialization
 }
 
 const SbHttpStubService = {
