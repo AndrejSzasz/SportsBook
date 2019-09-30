@@ -103,7 +103,7 @@ describe('SbHttpService', () => {
     let httpError: HttpErrorResponse;
     let mockRequest: TestRequest;
 
-    beforeAll(() => {
+    beforeEach(() => {
       service.post<Array<Test>>(POST_ENDPOINT, sentData).subscribe(
         (value) => {
           response = value;
@@ -115,7 +115,7 @@ describe('SbHttpService', () => {
       mockRequest = httpMock.expectOne(environment.API_URL + POST_ENDPOINT);
     });
 
-    afterAll(() => {
+    afterEach(() => {
       httpMock.verify();
       expect(httpError).toBeUndefined('should NOT return an error');
     });
