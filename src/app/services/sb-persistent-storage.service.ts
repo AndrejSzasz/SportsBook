@@ -11,7 +11,8 @@ export class SbPersistentStorageService {
     localStorage.setItem(key, JSON.stringify(object));
   }
 
-  retrieve(key): any {
-    return JSON.parse(localStorage.getItem(key) || '');
+  retrieve(key: string): any {
+    const item = localStorage.getItem(key);
+    return item ? JSON.parse(item) : null;
   }
 }
