@@ -11,7 +11,7 @@ import { EventService } from '../event.service';
 import { StadiumService, Stadium } from '../../stadiums/stadium.service';
 
 let eventResponse: number;
-let stadiumResponse: Array<Stadium>;
+let stadiumResponse: Array<Stadium> | undefined;
 
 const EventStubService = {
   init: function () { },

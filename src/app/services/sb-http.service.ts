@@ -26,7 +26,7 @@ export class SbHttpService {
     );
   }
 
-  post<T>(apiEndpoint: string, payload): Observable<T> {
+  post<T>(apiEndpoint: string, payload: any): Observable<T> {
     return this.http.post<T>(
       environment.API_URL + apiEndpoint,
       payload,

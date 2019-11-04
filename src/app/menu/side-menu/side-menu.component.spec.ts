@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SideMenuComponent } from './side-menu.component';
+import { SbPersistentStorageService } from 'src/app/services/sb-persistent-storage.service';
 
 @Component({ selector: 'sb-menu-item', template: '' })
 class MenuItemStubComponent { }
@@ -13,6 +14,9 @@ class MatNavListStubComponent { }
 describe('SideMenuComponent', () => {
   let component: SideMenuComponent;
   let fixture: ComponentFixture<SideMenuComponent>;
+  const sbPersistentStorageStubService: Partial<SbPersistentStorageService> = {
+    retrieve: () => {}
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -20,7 +24,10 @@ describe('SideMenuComponent', () => {
         SideMenuComponent,
         MenuItemStubComponent,
         MatNavListStubComponent,
-       ]
+       ],
+      providers: [
+        { provide: SbPersistentStorageService, useValue: sbPersistentStorageStubService },
+      ]
     })
     .compileComponents();
   }));
@@ -31,7 +38,7 @@ describe('SideMenuComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should be created', () => {
     expect(component).toBeTruthy();
   });
 });
