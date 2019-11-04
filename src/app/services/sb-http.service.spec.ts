@@ -146,7 +146,7 @@ describe('SbHttpService', () => {
     let httpError: HttpErrorResponse;
     let mockRequest: TestRequest;
 
-    beforeAll(() => {
+    beforeEach(() => {
       service.delete<number>(DELETE_ENDPOINT).subscribe(
         (value) => {
           response = value;
@@ -158,7 +158,7 @@ describe('SbHttpService', () => {
       mockRequest = httpMock.expectOne(environment.API_URL + DELETE_ENDPOINT);
     });
 
-    afterAll(() => {
+    afterEach(() => {
       httpMock.verify();
       expect(httpError).toBeUndefined('should NOT return an error');
     });
