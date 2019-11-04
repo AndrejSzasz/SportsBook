@@ -32,8 +32,8 @@ describe('AuthService', () => {
   describe('login() method', () => {
 
     let httpMock: HttpTestingController;
-    let httpResponse: string;
-    let httpError: HttpErrorResponse;
+    let httpResponse: string | null;
+    let httpError: HttpErrorResponse | null;
 
     beforeEach(() => {
       httpMock = TestBed.get(HttpTestingController);

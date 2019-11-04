@@ -6,7 +6,7 @@ import { SbHttpService } from '../services/sb-http.service';
 import { environment } from 'src/environments/environment';
 
 export interface SportsEvent {
-  id?: number;
+  id: number;
   startTime: string; // FIXME convert to datetime format "2018-11-20T13:38:30.834Z";
   name: string;
   stadiumId: number;

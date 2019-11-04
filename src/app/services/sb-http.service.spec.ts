@@ -11,10 +11,10 @@ import { SbHttpService } from './sb-http.service';
 import { AuthService } from './auth.service';
 import { environment } from 'src/environments/environment';
 
-const AuthStubService = {
+const AuthStubService: Partial<AuthService> = {
   token: 'access-token',
-  login: function () { },
-  isAuthenticated: function () { }
+  // login: function () { },
+  // isAuthenticated: function () { }
 };
 
 interface Test {
@@ -75,8 +75,8 @@ describe('SbHttpService', () => {
 
   describe('get() method', () => {
     it('should call the api URL with authorization header', () => {
-      let response: Array<Test>;
-      let httpError: HttpErrorResponse;
+      let response: Array<Test> | undefined;
+      let httpError: HttpErrorResponse | undefined;
 
       service.get<Array<Test>>(GET_ENDPOINT).subscribe(
         (value) => {
@@ -93,6 +93,7 @@ describe('SbHttpService', () => {
       expect(mockRequest.request.headers.get('Authorization')).toBe('Bearer ' + AuthStubService.token);
 
       mockRequest.flush(returnedData);
+      // subscription will be called synchronously
       expect(response).toEqual(returnedData);
       expect(httpError).toBeUndefined('should NOT return an error');
     });
@@ -146,7 +147,7 @@ describe('SbHttpService', () => {
     let httpError: HttpErrorResponse;
     let mockRequest: TestRequest;
 
-    beforeAll(() => {
+    beforeEach(() => {
       service.delete<number>(DELETE_ENDPOINT).subscribe(
         (value) => {
           response = value;
@@ -158,7 +159,7 @@ describe('SbHttpService', () => {
       mockRequest = httpMock.expectOne(environment.API_URL + DELETE_ENDPOINT);
     });
 
-    afterAll(() => {
+    afterEach(() => {
       httpMock.verify();
       expect(httpError).toBeUndefined('should NOT return an error');
     });

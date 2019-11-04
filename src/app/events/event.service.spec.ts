@@ -14,6 +14,7 @@ const GET_DATA: Array<SportsEvent> = [{
 }];
 const TEST_OBSERVABLE: Observable<Array<SportsEvent>> = getObservable(GET_DATA);
 const POST_DATA: SportsEvent = {
+  id: 123,
   startTime: '2018-11-20T13:38:30.834Z',
   name: 'NAME',
   stadiumId: 0
@@ -61,7 +62,7 @@ describe('EventService', () => {
   });
 
   it('should pass the data coming from the API', fakeAsync(() => {
-    let result: Array<SportsEvent>;
+    let result: Array<SportsEvent> | undefined;
     const service: EventService = TestBed.get(EventService);
     service.events$.subscribe(
       (value) => { result = value; }
@@ -90,7 +91,7 @@ describe('EventService', () => {
     });
 
     it('should return the result of the post', fakeAsync(() => {
-      let result: number;
+      let result: number | undefined;
       // WHEN
       service.addEvent(POST_DATA).subscribe(
         (value) => { result = value; }
@@ -121,7 +122,7 @@ describe('EventService', () => {
     });
 
     it('should return the result of the delete', fakeAsync(() => {
-      let result: number;
+      let result: number | undefined;
       // WHEN
       service.deleteEvent(DELETE_DATA).subscribe(
         (value) => { result = value; }
