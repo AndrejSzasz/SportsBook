@@ -3,6 +3,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { HttpErrorResponse } from '@angular/common/http';
 
 import { AuthService } from './auth.service';
+import { SbPersistentStorageService } from './sb-persistent-storage.service';
 
 const LOGIN_DATA = {
   username: 'NAME',
@@ -13,6 +14,10 @@ const TOKEN = 'TOKEN';
 const mockError = new ErrorEvent('Network error', {
   message: 'some error message',
 });
+const sbPersistentStorageStubService: Partial<SbPersistentStorageService> = {
+  retrieve: () => { },
+  save: () => { },
+};
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -20,9 +25,14 @@ describe('AuthService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [AuthService]
+      providers: [
+        AuthService,
+        { provide: SbPersistentStorageService, useValue: sbPersistentStorageStubService },
+      ]
     });
     service = TestBed.get(AuthService);
+    const persistentSaveSpy = spyOn(TestBed.get(SbPersistentStorageService), 'save');
+    persistentSaveSpy.calls.reset();
   });
 
   it('should be created', () => {
@@ -57,6 +67,8 @@ describe('AuthService', () => {
 
     it('should make successful HTTP call to the API', () => {
       const mockRequest = httpMock.expectOne(API_ENDPOINT);
+      const persistentSaveSpy = TestBed.get(SbPersistentStorageService).save;
+      const token_key = 'token';
 
       expect(mockRequest.cancelled).toBeFalsy();
       expect(mockRequest.request.responseType).toEqual('text');
@@ -65,6 +77,7 @@ describe('AuthService', () => {
       expect(httpResponse).toBe(TOKEN, 'there should be proper response');
       expect(httpError).toBeNull('should NOT return an error');
       expect(service.token).toBe(TOKEN, '(property)');
+      expect(persistentSaveSpy).toHaveBeenCalledWith(token_key, TOKEN);
     });
 
     it('should NOT get a token when HTTP call fails', () => {
@@ -88,11 +101,29 @@ describe('AuthService', () => {
       expect(service.isAuthenticated()).toBeFalsy();
     });
 
+    it('should return set token from persistent storage if no token yet', () => {
+      service.token = '';
+      spyOn(TestBed.get(SbPersistentStorageService), 'retrieve').and.returnValue('PERSISTENT_TOKEN');
+      expect(service.isAuthenticated()).toBeTruthy();
+      expect(service.token).toEqual('PERSISTENT_TOKEN');
+    });
+
     it('should return true if there is an access token', () => {
       service.token = TOKEN;
       expect(service.isAuthenticated()).toBeTruthy();
     });
 
+  });
+
+  it('logout() method should clear token (from persistent storage as well)', () => {
+    service.token = TOKEN;
+    const persistentSaveSpy = TestBed.get(SbPersistentStorageService).save;
+    const token_key = 'token';
+
+    service.logout();
+
+    expect(service.token).toBeFalsy();
+    expect(persistentSaveSpy).toHaveBeenCalledWith(token_key, '');
   });
 
 });
