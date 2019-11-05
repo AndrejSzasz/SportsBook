@@ -7,12 +7,13 @@ export class SbPersistentStorageService {
 
   constructor() { }
 
-  save(key: string, object: any): void {
-    localStorage.setItem(key, JSON.stringify(object));
+  save(key: string, object: any, useSessionStorage = false): void {
+    (useSessionStorage ? sessionStorage : localStorage)
+    .setItem(key, JSON.stringify(object));
   }
 
-  retrieve(key: string): any {
-    const item = localStorage.getItem(key);
+  retrieve(key: string, useSessionStorage = false): any {
+    const item = (useSessionStorage ? sessionStorage : localStorage).getItem(key);
     return item ? JSON.parse(item) : null;
   }
 }

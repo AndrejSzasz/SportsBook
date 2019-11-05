@@ -77,7 +77,7 @@ describe('AuthService', () => {
       expect(httpResponse).toBe(TOKEN, 'there should be proper response');
       expect(httpError).toBeNull('should NOT return an error');
       expect(service.token).toBe(TOKEN, '(property)');
-      expect(persistentSaveSpy).toHaveBeenCalledWith(token_key, TOKEN);
+      expect(persistentSaveSpy).toHaveBeenCalledWith(token_key, TOKEN, true); // save to sessionStorage
     });
 
     it('should NOT get a token when HTTP call fails', () => {
@@ -103,9 +103,12 @@ describe('AuthService', () => {
 
     it('should return set token from persistent storage if no token yet', () => {
       service.token = '';
-      spyOn(TestBed.get(SbPersistentStorageService), 'retrieve').and.returnValue('PERSISTENT_TOKEN');
+      const retrieveSpy = spyOn(TestBed.get(SbPersistentStorageService), 'retrieve');
+      retrieveSpy.withArgs('token', true).and.returnValue('SESSION_TOKEN');
+      retrieveSpy.withArgs('token', false).and.returnValue('LOCAL_TOKEN');
+      retrieveSpy.withArgs('token').and.returnValue('LOCAL_TOKEN2');
       expect(service.isAuthenticated()).toBeTruthy();
-      expect(service.token).toEqual('PERSISTENT_TOKEN');
+      expect(service.token).toEqual('SESSION_TOKEN');
     });
 
     it('should return true if there is an access token', () => {
@@ -123,7 +126,7 @@ describe('AuthService', () => {
     service.logout();
 
     expect(service.token).toBeFalsy();
-    expect(persistentSaveSpy).toHaveBeenCalledWith(token_key, '');
+    expect(persistentSaveSpy).toHaveBeenCalledWith(token_key, '', true); // save to sessionStorage
   });
 
 });

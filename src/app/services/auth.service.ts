@@ -40,12 +40,12 @@ export class AuthService {
 
   isAuthenticated() {
     if (!this.token) {
-      this.token = this.sbPersistentStorageService.retrieve(token_key);
+      this.token = this.sbPersistentStorageService.retrieve(token_key, true);
     }
     return !!this.token;
   }
 
   private saveToken(token: string) {
-    this.sbPersistentStorageService.save(token_key, token);
+    this.sbPersistentStorageService.save(token_key, token, true);
   }
 }
