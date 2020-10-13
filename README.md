@@ -1,8 +1,8 @@
 # SportsBook
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.5.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.5 and is currently on 8.3.6
 
-There is a live demo available at https://andrejepam.github.io/SportsBook/
+There is a live demo available at https://andrejszasz.github.io/SportsBook/
 
 ## Development server
 
