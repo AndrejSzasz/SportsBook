@@ -16,7 +16,7 @@ import { AddEventComponent } from '../add-event/add-event.component';
 })
 export class ListEventsComponent implements OnInit, OnDestroy {
 
-  stadiums: Array<Stadium>;
+  stadiums: Array<Stadium> = [];
   destroy$: Subject<void> = new Subject();
 
   constructor(
