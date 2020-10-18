@@ -87,9 +87,9 @@ describe('AddStadiumComponent', () => {
 
   it('should have the input field focused', async(() => {
     fixture.whenStable().then(() => {
-      const focusElement = fixture.debugElement.query(By.css(":focus"));
+      const focusElement = fixture.debugElement.query(By.css(':focus'));
       expect(focusElement).toBe(inputElement);
-    })
+    });
   }));
 
   function fillForm(value) {
