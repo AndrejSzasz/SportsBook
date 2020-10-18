@@ -61,8 +61,8 @@ describe('SbHttpService', () => {
         { provide: AuthService, useValue: AuthStubService }
       ]
     });
-    service = TestBed.get(SbHttpService);
-    httpMock = TestBed.get(HttpTestingController);
+    service = TestBed.inject(SbHttpService);
+    httpMock = TestBed.inject(HttpTestingController);
   });
 
   afterEach(() => {

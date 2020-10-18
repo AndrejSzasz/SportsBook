@@ -46,7 +46,7 @@ describe('AddStadiumComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
 
-    service = TestBed.get(StadiumService);
+    service = TestBed.inject(StadiumService);
     formElement = fixture.debugElement.query(By.css('form'));
     inputElement = fixture.debugElement.query(By.css('input'));
   });

@@ -50,8 +50,8 @@ describe('LoginFormComponent', () => {
   }));
 
   beforeEach(() => {
-    router = TestBed.get(Router);
-    location = TestBed.get(Location);
+    router = TestBed.inject(Router);
+    location = TestBed.inject(Location);
     fixture = TestBed.createComponent(LoginFormComponent);
     component = fixture.componentInstance;
     router.initialNavigation();
@@ -71,7 +71,7 @@ describe('LoginFormComponent', () => {
 
   xit('should redirect to returnUrl on successful authentication', fakeAsync(() => {
     const PATH = '/login?redirectTo=%2Fblah';
-    activatedRoute = TestBed.get(ActivatedRoute);
+    activatedRoute = TestBed.inject(ActivatedRoute);
     router.navigateByUrl(PATH);
     tick();
     expect(location.path()).toBe(PATH);

@@ -52,18 +52,18 @@ describe('EventService', () => {
   }));
 
   it('should be created', () => {
-    const service: EventService = TestBed.get(EventService);
+    const service: EventService = TestBed.inject(EventService);
     expect(service).toBeTruthy();
   });
 
   it('should return the observable from the API', () => {
-    const service: EventService = TestBed.get(EventService);
+    const service: EventService = TestBed.inject(EventService);
     expect(service.events$ instanceof Observable).toBeTruthy();
   });
 
   it('should pass the data coming from the API', fakeAsync(() => {
     let result: Array<SportsEvent> | undefined;
-    const service: EventService = TestBed.get(EventService);
+    const service: EventService = TestBed.inject(EventService);
     service.events$.subscribe(
       (value) => { result = value; }
     );
@@ -79,11 +79,11 @@ describe('EventService', () => {
 
     beforeEach(() => {
       // GIVEN
-      service = TestBed.get(EventService);
+      service = TestBed.inject(EventService);
     });
 
     it('should post data to the API', () => {
-      const postSpy = spyOn(TestBed.get(SbHttpService), 'post');
+      const postSpy = spyOn(TestBed.inject(SbHttpService), 'post');
       // WHEN
       service.addEvent(POST_DATA);
       // THEN
@@ -110,11 +110,11 @@ describe('EventService', () => {
 
     beforeEach(() => {
       // GIVEN
-      service = TestBed.get(EventService);
+      service = TestBed.inject(EventService);
     });
 
     it('should post data to the API', () => {
-      const deleteSpy = spyOn(TestBed.get(SbHttpService), 'delete');
+      const deleteSpy = spyOn(TestBed.inject(SbHttpService), 'delete');
       // WHEN
       service.deleteEvent(DELETE_DATA);
       // THEN
