@@ -46,7 +46,7 @@ describe('AddStadiumComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
 
-    service = TestBed.get(StadiumService);
+    service = TestBed.inject(StadiumService);
     formElement = fixture.debugElement.query(By.css('form'));
     inputElement = fixture.debugElement.query(By.css('input'));
   });
@@ -84,6 +84,13 @@ describe('AddStadiumComponent', () => {
 
     expect(initMethod).toHaveBeenCalled();
   });
+
+  it('should have the input field focused', async(() => {
+    fixture.whenStable().then(() => {
+      const focusElement = fixture.debugElement.query(By.css(':focus'));
+      expect(focusElement).toBe(inputElement);
+    });
+  }));
 
   function fillForm(value) {
     inputElement.nativeElement.value = value;

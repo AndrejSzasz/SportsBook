@@ -1,7 +1,8 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatInput } from '@angular/material/input';
 
 import { StadiumService } from '../stadium.service';
 
@@ -12,6 +13,7 @@ import { StadiumService } from '../stadium.service';
 })
 export class AddStadiumComponent implements OnInit {
 
+  @ViewChild('stadiumName', { static: true }) input: ElementRef<MatInput>;
   addForm: FormGroup;
   showAdd: boolean;
   @Output() close = new EventEmitter();
@@ -26,6 +28,7 @@ export class AddStadiumComponent implements OnInit {
     this.addForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
     });
+    this.input.nativeElement.focus();
   }
 
   onSubmit() {

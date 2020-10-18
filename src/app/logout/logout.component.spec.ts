@@ -44,7 +44,7 @@ describe('LogoutComponent', () => {
   });
 
   it('should log out', () => {
-    const authServiceLogoutSpy = spyOn(TestBed.get(AuthService), 'logout');
+    const authServiceLogoutSpy = spyOn(TestBed.inject(AuthService), 'logout');
 
     expect(authServiceLogoutSpy).not.toHaveBeenCalled();
     fixture.detectChanges();
@@ -53,7 +53,7 @@ describe('LogoutComponent', () => {
 
   it('should navigate to home page', () => {
     // test is implementation dependent, component could call navigateByUrl as well
-    const routerNavigateSpy = spyOn(TestBed.get(Router), 'navigate');
+    const routerNavigateSpy = spyOn(TestBed.inject(Router), 'navigate');
 
     expect(routerNavigateSpy).not.toHaveBeenCalled();
     fixture.detectChanges();

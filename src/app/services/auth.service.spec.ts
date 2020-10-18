@@ -30,8 +30,8 @@ describe('AuthService', () => {
         { provide: SbPersistentStorageService, useValue: sbPersistentStorageStubService },
       ]
     });
-    service = TestBed.get(AuthService);
-    const persistentSaveSpy = spyOn(TestBed.get(SbPersistentStorageService), 'save');
+    service = TestBed.inject(AuthService);
+    const persistentSaveSpy = spyOn(TestBed.inject(SbPersistentStorageService), 'save');
     persistentSaveSpy.calls.reset();
   });
 
@@ -46,7 +46,7 @@ describe('AuthService', () => {
     let httpError: HttpErrorResponse | null;
 
     beforeEach(() => {
-      httpMock = TestBed.get(HttpTestingController);
+      httpMock = TestBed.inject(HttpTestingController);
 
       httpResponse = null;
       httpError = null;
@@ -67,7 +67,7 @@ describe('AuthService', () => {
 
     it('should make successful HTTP call to the API', () => {
       const mockRequest = httpMock.expectOne(API_ENDPOINT);
-      const persistentSaveSpy = TestBed.get(SbPersistentStorageService).save;
+      const persistentSaveSpy = TestBed.inject(SbPersistentStorageService).save;
       const token_key = 'token';
 
       expect(mockRequest.cancelled).toBeFalsy();
@@ -103,7 +103,7 @@ describe('AuthService', () => {
 
     it('should return set token from persistent storage if no token yet', () => {
       service.token = '';
-      const retrieveSpy = spyOn(TestBed.get(SbPersistentStorageService), 'retrieve');
+      const retrieveSpy = spyOn(TestBed.inject(SbPersistentStorageService), 'retrieve');
       retrieveSpy.withArgs('token', true).and.returnValue('SESSION_TOKEN');
       retrieveSpy.withArgs('token', false).and.returnValue('LOCAL_TOKEN');
       retrieveSpy.withArgs('token').and.returnValue('LOCAL_TOKEN2');
@@ -120,7 +120,7 @@ describe('AuthService', () => {
 
   it('logout() method should clear token (from persistent storage as well)', () => {
     service.token = TOKEN;
-    const persistentSaveSpy = TestBed.get(SbPersistentStorageService).save;
+    const persistentSaveSpy = TestBed.inject(SbPersistentStorageService).save;
     const token_key = 'token';
 
     service.logout();

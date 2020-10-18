@@ -23,7 +23,7 @@ describe('StadiumService', () => {
   }));
 
   it('should be created', () => {
-    const service: StadiumService = TestBed.get(StadiumService);
+    const service: StadiumService = TestBed.inject(StadiumService);
     expect(service).toBeTruthy();
   });
 });
