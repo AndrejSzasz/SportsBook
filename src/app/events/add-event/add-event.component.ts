@@ -61,6 +61,7 @@ export class AddEventComponent implements OnInit, OnDestroy {
   onSubmit() {
     if (this.addForm.valid) {
       this.addEvent();
+      return true;
     } else {
       return false;
     }
