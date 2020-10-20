@@ -34,6 +34,7 @@ export class AddStadiumComponent implements OnInit {
   onSubmit() {
     if (this.addForm.valid) {
       this.addStadium();
+      return true;
     } else {
       return false;
     }
